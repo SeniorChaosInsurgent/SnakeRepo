@@ -6,4 +6,5 @@ public class SnakeMovement : MonoBehaviour
 {
     private Vector2 _direction;
 
+
 }
