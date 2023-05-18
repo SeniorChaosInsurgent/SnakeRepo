@@ -6,6 +6,7 @@ using System;
 public class SnakeMovement : MonoBehaviour
 {
     public static event Action OnFoodCollect;
+    public static event Action<int> OnStep;
 
     public int Length => _length;
 
@@ -47,6 +48,7 @@ public class SnakeMovement : MonoBehaviour
                 _timeSinceLastStep = 0;
                 _rb2D.position += _movementDirection * _step;
                 Instantiate(_tail, _currentPosition, Quaternion.Euler(0, 0, 0));
+                OnStep?.Invoke(_length);
             }
         }
         else
