@@ -12,7 +12,7 @@ public class Tail : MonoBehaviour
     {
         _stepsPassed++;
 
-        if (_stepsPassed >= length + 1)
+        if (_stepsPassed > length)
         {
             SnakeMovement.OnStep -= IndexCalculation;
             Destroy(gameObject);
