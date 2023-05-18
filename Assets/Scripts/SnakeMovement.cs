@@ -7,16 +7,21 @@ public class SnakeMovement : MonoBehaviour
 {
     public static event Action OnFoodCollect;
 
+    public int Length => _length;
+
     private Vector2 _movementDirection;
 
     [SerializeField] private float _stepCooldown;
+    [SerializeField] private GameObject _tail;
 
-    private float _length;
+    private int _length;
     private float _timeSinceLastStep;
     private float _step = 0.5f;
 
     private PlayerInputs _playerInputs;
 
+    private Vector3 _currentPosition;
+        
     private Rigidbody2D _rb2D;
 
     private void Awake()
@@ -28,6 +33,7 @@ public class SnakeMovement : MonoBehaviour
     private void Update()
     {
         _timeSinceLastStep += Time.deltaTime;
+        _currentPosition = transform.position;
     }
 
     private void FixedUpdate()
@@ -40,6 +46,7 @@ public class SnakeMovement : MonoBehaviour
             {
                 _timeSinceLastStep = 0;
                 _rb2D.position += _movementDirection * _step;
+                Instantiate(_tail, _currentPosition, Quaternion.Euler(0, 0, 0));
             }
         }
         else
