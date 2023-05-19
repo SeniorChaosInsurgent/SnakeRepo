@@ -15,6 +15,8 @@ public class FoodSpawn : MonoBehaviour
     private void Awake()
     {    
         SnakeMovement.OnFoodCollect += FoodPositionUpdater;
+        SnakeMovement.OnPlayerDeath += OnPlayerDeath;
+
         FoodPositionUpdater();
     }
 
@@ -26,5 +28,15 @@ public class FoodSpawn : MonoBehaviour
             _possibleXPositions[Random.Range(0, _possibleXPositions.Length)],
             _possibleYPositions[Random.Range(0, _possibleYPositions.Length)]
         );
+    }
+    
+    private void OnPlayerDeath()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        SnakeMovement.OnFoodCollect -= FoodPositionUpdater;
     }
 }

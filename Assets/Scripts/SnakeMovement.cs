@@ -7,6 +7,7 @@ public class SnakeMovement : MonoBehaviour
 {
     public static event Action OnFoodCollect;
     public static event Action<int> OnStep;
+    public static event Action OnPlayerDeath;
 
     public int Length => _length;
 
@@ -63,7 +64,12 @@ public class SnakeMovement : MonoBehaviour
         if (collision.CompareTag("Food"))
         {
             _length++;
-            OnFoodCollect.Invoke();
+            OnFoodCollect?.Invoke();
+        }
+        if (collision.CompareTag("Player"))
+        {
+            OnPlayerDeath?.Invoke();
+            Time.timeScale = 0;
         }
     }
 }
